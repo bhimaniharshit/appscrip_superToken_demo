@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "314496593433",
+    "project_id": "super-token-demo",
+    "storage_bucket": "super-token-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314496593433:android:725f5c3aa839eda30d8488",
+        "android_client_info": {
+          "package_name": "com.appscrip.super_token_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314496593433-grm8trnfcntjjtmd85g3i69v6n59uv3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appscrip.super_token_demo",
+            "certificate_hash": "f3afb010e1f3afb0f45aaf938d9ce7e4b2548ee9"
+          }
+        },
+        {
+          "client_id": "314496593433-prso3m7a967a2hiul1dqqocbh88a1rso.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appscrip.super_token_demo",
+            "certificate_hash": "fc6cc86a5b022af7473c553523ffae94cd5c16ad"
+          }
+        },
+        {
+          "client_id": "314496593433-mg1r0fa3h4p1vjp8i35mvfmd7a20a9k7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnrIfsQhpw7yg3l8FQSE10IdqHUEy4Cu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314496593433-mg1r0fa3h4p1vjp8i35mvfmd7a20a9k7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "314496593433-39mc35vh5lp60cpme99gqh00grjp16fs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.appscrip.superTokenDemo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
