@@ -5,7 +5,7 @@ import 'package:supertokens_flutter/supertokens.dart';
 
 void main() {
   SuperTokens.init(
-    apiDomain: "http://52.14.239.179:3001",
+    apiDomain: "http://52.14.239.179:5007",
     apiBasePath: "/auth",
   );
   runApp(const MyApp());

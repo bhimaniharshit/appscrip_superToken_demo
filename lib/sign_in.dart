@@ -18,7 +18,7 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController passwordController = TextEditingController();
 
   final String apiUrl =
-      'http://52.14.239.179:3001/auth/signIn'; // Replace with your API endpoint
+      'http://52.14.239.179:5007/auth/signIn'; // Replace with your API endpoint
 
   Future<void> _signIn() async {
     Utility.showLoadingDialog();

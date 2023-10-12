@@ -22,8 +22,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  final String apiUrl = 'http://52.14.239.179:3001/auth/signup';
-
   Future<void> _signUp() async {
     Utility.showLoadingDialog();
 
@@ -45,9 +43,54 @@ class _SignUpScreenState extends State<SignUpScreen> {
     };
 
     final response = await http.post(
-      Uri.parse(apiUrl),
+      Uri.parse('http://52.14.239.179:5007/auth/signup'),
       headers: <String, String>{
         'Content-Type': 'application/json',
+      },
+      body: jsonEncode(requestData),
+    );
+
+    if (response.statusCode == 200) {
+      Utility.closeDialog();
+      var data = json.decode(response.body);
+      if (data['user'] != null) {
+        await Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ));
+      } else if (data['status'] == 'FIELD_ERROR') {
+        Get.snackbar(
+            'Error', json.decode(response.body)['formFields'][0]['error'],
+            backgroundColor: Colors.red);
+      } else {
+        Get.snackbar('Error', json.decode(response.body)['status'],
+            backgroundColor: Colors.red);
+      }
+      print('POST request successful');
+      print('Response data: ${response.body}');
+    } else {
+      Utility.closeDialog();
+      print('POST request failed with status: ${response.statusCode}');
+      print('Response data: ${response.body}');
+    }
+  }
+
+  Future<void> _googleSignUp(String accessToken, String idToken) async {
+    Utility.showLoadingDialog();
+
+    final Map<String, dynamic> requestData = {
+      "thirdPartyId": "google",
+      "clientType": "android",
+      "oAuthTokens": {
+        "access_token": accessToken,
+        "id_token": idToken,
+      }
+    };
+
+    final response = await http.post(
+      Uri.parse('http://52.14.239.179:5007/auth/signinup'),
+      headers: <String, String>{
+        'rid': 'thirdparty',
+        'Content-Type': 'application/json; charset=utf-8'
       },
       body: jsonEncode(requestData),
     );
@@ -84,8 +127,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (user == null) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Sign In failed.')));
+      } else {
+        var authentication = await user.authentication;
+        String accessToken = authentication.accessToken ?? '';
+        String idToken = authentication.idToken ?? '';
+        _googleSignUp(accessToken, idToken);
       }
-      print('google signin data------->>>$user');
     } catch (e) {
       print('------->>>$e');
     }
