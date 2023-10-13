@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:super_token_demo/google_signin_api.dart';
 import 'package:super_token_demo/home_screen.dart';
 import 'package:super_token_demo/sign_in.dart';
@@ -141,116 +142,173 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Sign Up',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 100),
-            TextField(
-              controller: userNameController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter your username',
-                labelText: 'User Name',
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter your Email',
-                labelText: 'Email',
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            TextField(
-              controller: passwordController,
-              obscureText: true, // Hide the password
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Enter your Password',
-                labelText: 'Password',
-              ),
-            ),
-            const SizedBox(height: 24.0),
-            GestureDetector(
-              onTap: _signUp,
-              child: Container(
-                height: 55,
-                width: double.infinity, // Set width to full width
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Center(
-                  child: Text(
-                    'Sign Up'.toUpperCase(),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24.0),
-            GestureDetector(
-              onTap: googleSignIn,
-              child: Container(
-                height: 55,
-                width: double.infinity, // Set width to full width
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Center(
-                  child: Text(
-                    'Sign Up with Google'.toUpperCase(),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 100),
-            Row(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 const Text(
-                  'Already have an account?',
-                  style: TextStyle(),
+                  'Sign Up',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(height: 100),
+                TextField(
+                  controller: userNameController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter your username',
+                    labelText: 'User Name',
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                TextField(
+                  controller: emailController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter your Email',
+                    labelText: 'Email',
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                TextField(
+                  controller: passwordController,
+                  obscureText: true, // Hide the password
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter your Password',
+                    labelText: 'Password',
+                  ),
+                ),
+                const SizedBox(height: 24.0),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignInPage()),
-                    );
-                  },
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+                  onTap: _signUp,
+                  child: Container(
+                    height: 55,
+                    width: double.infinity, // Set width to full width
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Sign Up'.toUpperCase(),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
                     ),
                   ),
                 ),
+                const SizedBox(height: 24.0),
+                const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 5, right: 5),
+                      child: Text('OR', style: TextStyle(color: Colors.grey)),
+                    ),
+                    Expanded(
+                      child: Divider(
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+                if (GetPlatform.isAndroid) ...[
+                  const SizedBox(height: 24.0),
+                  GestureDetector(
+                    onTap: googleSignIn,
+                    child: Container(
+                      height: 55,
+                      width: double.infinity, // Set width to full width
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(.5),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Center(
+                          child: SvgPicture.asset(
+                        'assets/colored_google_icon.svg',
+                        height: 25,
+                        width: 25,
+                      )),
+                    ),
+                  ),
+                ],
+                if (GetPlatform.isIOS) ...[
+                  const SizedBox(height: 24.0),
+                  GestureDetector(
+                    onTap: () async {
+                      final credential =
+                          await SignInWithApple.getAppleIDCredential(
+                        scopes: [
+                          AppleIDAuthorizationScopes.email,
+                          AppleIDAuthorizationScopes.fullName,
+                        ],
+                      );
+                      print(credential);
+                    },
+                    child: Container(
+                      height: 55,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/colored_apple_logo.svg',
+                          colorFilter: const ColorFilter.mode(
+                              Colors.white, BlendMode.srcIn),
+                          height: 30,
+                          width: 30,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 100),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Already have an account?',
+                      style: TextStyle(),
+                    ),
+                    const SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignInPage()),
+                        );
+                      },
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
