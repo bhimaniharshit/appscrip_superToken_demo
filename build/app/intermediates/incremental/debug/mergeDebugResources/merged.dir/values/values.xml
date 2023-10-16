@@ -124,9 +124,16 @@
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
     <string name="copy_toast_msg">Link copied to clipboard</string>
+    <string name="default_web_client_id" translatable="false">314496593433-mg1r0fa3h4p1vjp8i35mvfmd7a20a9k7.apps.googleusercontent.com</string>
     <string name="fallback_menu_item_copy_link">Copy link</string>
     <string name="fallback_menu_item_open_in_browser">Open in browser</string>
     <string name="fallback_menu_item_share_link">Share link</string>
+    <string name="gcm_defaultSenderId" translatable="false">314496593433</string>
+    <string name="google_api_key" translatable="false">AIzaSyAnrIfsQhpw7yg3l8FQSE10IdqHUEy4Cu4</string>
+    <string name="google_app_id" translatable="false">1:314496593433:android:725f5c3aa839eda30d8488</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAnrIfsQhpw7yg3l8FQSE10IdqHUEy4Cu4</string>
+    <string name="google_storage_bucket" translatable="false">super-token-demo.appspot.com</string>
+    <string name="project_id" translatable="false">super-token-demo</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
         

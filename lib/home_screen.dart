@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController passwordController = TextEditingController();
 
   final String apiUrl =
-      'http://52.14.239.179:5007/auth/signIn'; // Replace with your API endpoint
+      'https://suppertoken-api.juicy.network/auth/signIn'; // Replace with your API endpoint
 
   Future<void> _signIn() async {
     Utility.showLoadingDialog();

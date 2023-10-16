@@ -44,7 +44,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     };
 
     final response = await http.post(
-      Uri.parse('http://52.14.239.179:5007/auth/signup'),
+      Uri.parse('https://suppertoken-api.juicy.network/auth/signup'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
@@ -88,9 +88,63 @@ class _SignUpScreenState extends State<SignUpScreen> {
     };
 
     final response = await http.post(
-      Uri.parse('http://52.14.239.179:5007/auth/signinup'),
+      Uri.parse('https://suppertoken-api.juicy.network/auth/signinup'),
       headers: <String, String>{
         'rid': 'thirdparty',
+        'Content-Type': 'application/json; charset=utf-8'
+      },
+      body: jsonEncode(requestData),
+    );
+
+    if (response.statusCode == 200) {
+      Utility.closeDialog();
+      var data = json.decode(response.body);
+      if (data['user'] != null) {
+        await Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ));
+      } else if (data['status'] == 'FIELD_ERROR') {
+        Get.snackbar(
+            'Error', json.decode(response.body)['formFields'][0]['error'],
+            backgroundColor: Colors.red);
+      } else {
+        Get.snackbar('Error', json.decode(response.body)['status'],
+            backgroundColor: Colors.red);
+      }
+      print('POST request successful');
+      print('Response data: ${response.body}');
+    } else {
+      Utility.closeDialog();
+      print('POST request failed with status: ${response.statusCode}');
+      print('Response data: ${response.body}');
+    }
+  }
+
+  /// apple sign in
+  Future<void> _appleSignUp(
+      String code, String email, String firstName, String lastName) async {
+    Utility.showLoadingDialog();
+
+    final Map<String, dynamic> requestData = {
+      "thirdPartyId": "apple",
+      "clientType": "",
+      "redirecURIInfo": {
+        "redirectURIOnProviderDashboard":
+            "https://suppertoken-api.juicy.network/auth/callback/apple",
+        "redirectURIQueryParams": {
+          "code": code,
+          "user": {
+            "name": {"firstName": firstName, "lastName": lastName},
+            "email": email
+          }
+        }
+      }
+    };
+
+    final response = await http.post(
+      Uri.parse('https://suppertoken-api.juicy.network/auth/signinup'),
+      headers: <String, String>{
+        'rid': 'thirdpartyemailpassword',
         'Content-Type': 'application/json; charset=utf-8'
       },
       body: jsonEncode(requestData),
@@ -132,6 +186,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         var authentication = await user.authentication;
         String accessToken = authentication.accessToken ?? '';
         String idToken = authentication.idToken ?? '';
+        print(accessToken);
+        print(idToken);
         _googleSignUp(accessToken, idToken);
       }
     } catch (e) {
@@ -258,6 +314,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           AppleIDAuthorizationScopes.fullName,
                         ],
                       );
+                      _appleSignUp(
+                          credential.authorizationCode,
+                          credential.email ?? '',
+                          credential.givenName ?? '',
+                          credential.familyName ?? '');
                       print(credential);
                     },
                     child: Container(

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.appscrip.super_token_demo.app-mergeDebugResources-14:/values-v16/values-v16.xml",
+            "outputFile": "com.appscrip.super_token_demo.app-mergeDebugResources-15:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/Users/rahulsharma/.gradle/caches/transforms-3/5d9f950b7722b2ed365ff44dc05a3c61/transformed/core-1.6.0/res/values-v16/values-v16.xml",
+                    "source": "/Users/rahulsharma/.gradle/caches/transforms-3/4d23b986a2982fd056b7d6a90bac8747/transformed/core-1.6.0/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
