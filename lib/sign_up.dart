@@ -90,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final response = await http.post(
       Uri.parse('https://suppertoken-api.juicy.network/auth/signinup'),
       headers: <String, String>{
-        'rid': 'thirdparty',
+        'rid': 'thirdpartyemailpassword',
         'Content-Type': 'application/json; charset=utf-8'
       },
       body: jsonEncode(requestData),
@@ -127,8 +127,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     final Map<String, dynamic> requestData = {
       "thirdPartyId": "apple",
-      "clientType": "",
-      "redirecURIInfo": {
+      "clientType": "IOS",
+      "redirectURIInfo": {
         "redirectURIOnProviderDashboard":
             "https://suppertoken-api.juicy.network/auth/callback/apple",
         "redirectURIQueryParams": {
