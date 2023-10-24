@@ -56,7 +56,9 @@ class _SignInPageState extends State<SignInPage> {
       var data = json.decode(response.body);
       if (data['user'] != null) {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => HomeScreen(
+            postId: data['user']['id'],
+          ),
         ));
       } else {
         Get.snackbar('Error', json.decode(response.body)['status'],

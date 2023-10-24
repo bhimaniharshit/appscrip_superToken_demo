@@ -6,7 +6,8 @@ import 'package:super_token_demo/utility.dart';
 import 'package:supertokens_flutter/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.postId});
+  final String postId;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -16,38 +17,21 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  final String apiUrl =
-      'https://suppertoken-api.juicy.network/auth/signIn'; // Replace with your API endpoint
+  @override
+  void initState() {
+    _getUserDetails();
+    super.initState();
+  }
 
-  Future<void> _signIn() async {
+  Future<void> _getUserDetails() async {
     Utility.showLoadingDialog();
-    String email = emailController.text;
-    String password = passwordController.text;
 
-    // You can add your login logic here
-    // For a simple example, let's just print the values
-    print('Email: $email');
-    print('Password: $password');
-
-    final Map<String, dynamic> requestData = {
-      'formFields': [
-        {
-          'id': 'email',
-          'value': email,
-        },
-        {
-          'id': 'password',
-          'value': password,
-        },
-      ]
-    };
-
-    final response = await http.post(
-      Uri.parse(apiUrl),
+    final response = await http.get(
+      Uri.parse(
+          'https://suppertoken-api.juicy.network/post/details?postId=${widget.postId}'),
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
-      body: jsonEncode(requestData),
     );
 
     if (response.statusCode == 200) {
@@ -72,6 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _getUserDetails();
+
     return Scaffold();
   }
 }

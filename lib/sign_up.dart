@@ -56,7 +56,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       var data = json.decode(response.body);
       if (data['user'] != null) {
         await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
+          builder: (context) => HomeScreen(
+            postId: data['user']['id'],
+          ),
         ));
       } else if (data['status'] == 'FIELD_ERROR') {
         Get.snackbar(
@@ -101,7 +103,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       var data = json.decode(response.body);
       if (data['user'] != null) {
         await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
+          builder: (context) => HomeScreen(
+            postId: data['user']['id'],
+          ),
         ));
       } else if (data['status'] == 'FIELD_ERROR') {
         Get.snackbar(
@@ -155,7 +159,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       var data = json.decode(response.body);
       if (data['user'] != null) {
         await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
+          builder: (context) => HomeScreen(
+            postId: data['user']['id'],
+          ),
         ));
       } else if (data['status'] == 'FIELD_ERROR') {
         Get.snackbar(
@@ -319,7 +325,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           credential.email ?? '',
                           credential.givenName ?? '',
                           credential.familyName ?? '');
-                      print(credential);
+                      print(credential.authorizationCode);
                     },
                     child: Container(
                       height: 55,
